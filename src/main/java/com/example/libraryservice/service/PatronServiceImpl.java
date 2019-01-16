@@ -11,7 +11,7 @@ import java.util.List;
 public class PatronServiceImpl implements PatronService {
 
     @Override
-    public List<Patron> getPatrons() {
+    public List<Patron> getUsers() {
         List<Patron> patrons = new ArrayList<>();
         patrons.add(new Patron(1L, "Tatjana", "", "Lobza", "", LocalDate.now(), "Test Address"));
         patrons.add(new Patron(2L, "Tatjana", "", "Lobza", "", LocalDate.now(), "Test Address"));

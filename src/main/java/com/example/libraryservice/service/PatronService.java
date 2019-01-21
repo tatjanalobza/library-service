@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PatronService {
 
-    List<Patron> get();
+    List<Patron> getPatrons();
 
     Patron getPatron(Long id);
 

@@ -27,7 +27,7 @@ public class PatronController {
             @ApiResponse(code = 401, message = "You are not authorized to list patrons"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden")})
     public List<Patron> getPatrons() {
-        return patronService.getPatrons();
+        return (List<Patron>) patronService.getPatrons();
     }
 
     @ApiOperation(value = "Retrieves a single patron")

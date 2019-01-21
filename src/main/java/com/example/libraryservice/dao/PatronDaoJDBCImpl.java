@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +44,27 @@ public class PatronDaoJDBCImpl implements PatronDao {
 
     @Override
     public List<Patron> listPatrons() {
-        return null;
+        ResultSet resultSet = null;
+        List<Patron> patrons = new ArrayList<Patron>();
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "Ape5988Zoo");
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM patrons")) {
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Patron p = new Patron(
+                        resultSet.getLong("id"),
+                        resultSet.getString("first_name"),
+                        resultSet.getString("middle_name"),
+                        resultSet.getString("last_name"),
+                        resultSet.getString("salutation"),
+                        resultSet.getDate("date_of_birth").toLocalDate(),
+                        resultSet.getString("address"));
+                patrons.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            log.error("Error occurred during the database call ", e);
+        }
+        return patrons;
     }
 
 }

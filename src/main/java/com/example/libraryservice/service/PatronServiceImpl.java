@@ -19,6 +19,7 @@ public class PatronServiceImpl implements PatronService {
     @Override
     public List<Patron> getPatrons() {
         return patronDao.listPatrons();
+
     }
 
     @Override

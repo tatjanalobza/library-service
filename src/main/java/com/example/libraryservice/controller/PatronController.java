@@ -6,8 +6,6 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -27,7 +25,7 @@ public class PatronController {
             @ApiResponse(code = 401, message = "You are not authorized to list patrons"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden")})
     public List<Patron> getPatrons() {
-        return (List<Patron>) patronService.getPatrons();
+        return patronService.getPatrons();
     }
 
     @ApiOperation(value = "Retrieves a single patron")

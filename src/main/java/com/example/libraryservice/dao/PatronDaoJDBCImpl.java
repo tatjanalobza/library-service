@@ -46,4 +46,16 @@ public class PatronDaoJDBCImpl implements PatronDao {
         return null;
     }
 
+    @Override
+    public void deletePatron(Long id) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "Ape5988Zoo");
+             PreparedStatement statement = connection.prepareStatement("DELETE * FROM patrons WHERE id = ? LIMIT 1")) {
+
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            } catch (SQLException e) {
+            e.printStackTrace();
+            log.error("Error occurred during the database call ", e);
+        }
+    }
 }

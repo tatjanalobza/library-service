@@ -10,4 +10,6 @@ public interface PatronService {
 
     Patron getPatron(Long id);
 
+    void deletePatron(Long id);
+
 }

@@ -11,4 +11,6 @@ public interface PatronDao {
 
     List<Patron> listPatrons();
 
+    void deletePatron(Long id);
+
 }

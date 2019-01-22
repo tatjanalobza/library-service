@@ -49,11 +49,12 @@ public class PatronDaoJDBCImpl implements PatronDao {
     @Override
     public boolean deletePatron(Long id) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "Ape5988Zoo");
-             PreparedStatement statement = connection.prepareStatement("DELETE * FROM patrons WHERE id = ? LIMIT 1")) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM patrons WHERE id = ?")) {
 
             statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            return true;
+            int result = statement.executeUpdate();
+                return result != 0;
+                
             } catch (SQLException e) {
             log.error("Error occurred during the database call ", e);
             return false;

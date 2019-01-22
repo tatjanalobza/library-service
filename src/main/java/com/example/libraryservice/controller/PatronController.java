@@ -48,7 +48,7 @@ public class PatronController {
             @ApiResponse(code = 400, message = "The provided parameter is invalid"),
             @ApiResponse(code = 401, message = "You are not authorized to delete patrons"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden")})
-    public void deletePatron(@PathVariable @ApiParam(value = "Deleted patron with id: ") Long id) {
-
+    public boolean deletePatron(@PathVariable @ApiParam(value = "Deleted patron with id: ") Long id) {
+            return patronService.deletePatron(id);
     }
 }

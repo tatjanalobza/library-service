@@ -32,9 +32,12 @@ public class PatronServiceImpl implements PatronService {
         return patron.get();
     }
 
-    public void deletePatron(Long id) {
-       patronDao.deletePatron(id);
-       System.out.println("The patron with id " + id + "has been deleted");
+    public boolean deletePatron(Long id) {
+       if(patronDao.deletePatron(id)) {
+           return true;
+       } else {
+           throw new RuntimeException("The specified id has not been deleted");
+       }
     }
 
 }

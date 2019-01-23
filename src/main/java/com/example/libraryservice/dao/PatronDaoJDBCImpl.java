@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,10 +55,32 @@ public class PatronDaoJDBCImpl implements PatronDao {
             statement.setLong(1, id);
             int result = statement.executeUpdate();
                 return result != 0;
-                
+
             } catch (SQLException e) {
             log.error("Error occurred during the database call ", e);
             return false;
         }
+    }
+
+    @Override
+    public boolean addPatron(String salutation, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String address) {
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "Ape5988Zoo");
+             PreparedStatement statement = connection.prepareStatement
+                     ("INSERT INTO patrons (salutation, first_name, middle_name, last_name, date_of_birth, address) VALUES (?, ?, ?, ?, ?, ?)")) {
+
+                    statement.setString(1, salutation);
+                    statement.setString(2, firstName);
+                    statement.setString(3, middleName);
+                    statement.setString(4, lastName);
+                    statement.setDate(5, Date.valueOf(dateOfBirth));
+                    statement.setString(6, address);
+            int result = statement.executeUpdate();
+            return result != 0;
+
+        } catch (SQLException e) {
+            log.error("Error occurred during the database call ", e);
+        }
+        return false;
     }
 }

@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.Scanner;
+
 
 @Component
 public class PatronServiceImpl implements PatronService {
@@ -38,6 +38,15 @@ public class PatronServiceImpl implements PatronService {
        } else {
            throw new RuntimeException("The specified id has not been deleted");
        }
+    }
+
+    @Override
+    public boolean addPatron(String salutation, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String address) {
+        if (patronDao.addPatron(salutation, firstName, middleName, lastName, dateOfBirth, address)) {
+            return true;
+        } else {
+            throw new RuntimeException("Patron has not been added");
+        }
     }
 
 }

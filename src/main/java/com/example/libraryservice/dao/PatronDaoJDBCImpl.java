@@ -95,8 +95,22 @@ public class PatronDaoJDBCImpl implements PatronDao {
                     statement.setString(4, lastName);
                     statement.setDate(5, Date.valueOf(dateOfBirth));
                     statement.setString(6, address);
-                    Long result = statement.executeLargeUpdate();
-            //Long result = Long.valueOf(statement.executeUpdate());
+                    //ResultSet patron = statement.executeQuery();
+                    //Long result = patron.getLong(1);
+                    //Long result = statement.executeLargeUpdate();
+                    //Long result = Long.valueOf(statement.executeUpdate());
+                    int affectedRows = statement.executeUpdate();
+                    Long result;
+                    if (affectedRows == 0) {
+                        throw new SQLException("Creating user failed, no rows affected.");
+                    }
+                    try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            result = generatedKeys.getLong(1);
+                        } else {
+                            throw new SQLException("Creating user failed, no rows affected.");
+                        }
+                    }
             return result;
 
         } catch (SQLException e) {

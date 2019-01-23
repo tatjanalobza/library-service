@@ -41,9 +41,9 @@ public class PatronServiceImpl implements PatronService {
     }
 
     @Override
-    public boolean addPatron(String salutation, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String address) {
-        if (patronDao.addPatron(salutation, firstName, middleName, lastName, dateOfBirth, address)) {
-            return true;
+    public Long addPatron(String salutation, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String address) {
+        if (patronDao.addPatron(salutation, firstName, middleName, lastName, dateOfBirth, address) > 0) {
+            return patronDao.addPatron(salutation, firstName, middleName, lastName, dateOfBirth, address);
         } else {
             throw new RuntimeException("Patron has not been added");
         }

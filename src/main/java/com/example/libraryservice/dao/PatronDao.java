@@ -14,6 +14,6 @@ public interface PatronDao {
 
     boolean deletePatron(Long id);
 
-    boolean addPatron(String salutation, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String address);
+    Long addPatron(String salutation, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String address);
 
 }

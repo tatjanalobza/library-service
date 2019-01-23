@@ -4,8 +4,10 @@ import com.example.libraryservice.model.Patron;
 import com.example.libraryservice.service.PatronService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
@@ -49,20 +51,25 @@ public class PatronController {
             @ApiResponse(code = 400, message = "The provided parameter is invalid"),
             @ApiResponse(code = 401, message = "You are not authorized to delete patrons"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden")})
-    public boolean deletePatron(@PathVariable @ApiParam(value = "Deleted patron with id: ") Long id) {
+    public boolean deletePatron(@PathVariable @ApiParam(value = "Patron to be deleted with id: ") Long id) {
             return patronService.deletePatron(id);
     }
 
     @ApiOperation(value = "Inserts a single patron")
-    @RequestMapping(value = "/patron/{id}", method = POST, produces = "application/json")
+    @RequestMapping(value = "/patron", method = POST, produces = "application/json")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully added the patron"),
             @ApiResponse(code = 400, message = "The provided parameter is invalid"),
-            @ApiResponse(code = 401, message = "You are not authorized to delete patrons"),
+            @ApiResponse(code = 401, message = "You are not authorized to add patrons"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden")})
-    public boolean addPatron(@RequestBody Patron patronToBeCreated) {
-//        return patronService.addPatron(salutation, firstName, middleName, lastName, dateOfBirth, address);
-        System.out.println(patronToBeCreated);
-        return true;
+    public Long insertPatron(@RequestParam(required = false) @ApiParam (value = "Salutation") String salutation,
+                              @RequestParam @ApiParam (value = "First Name") String firstName,
+                              @RequestParam (required = false) @ApiParam (value = "Middle Name") String middleName,
+                              @RequestParam @ApiParam (value = "Last Name") String lastName,
+                              @RequestParam @ApiParam (value = "Date of Birth") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
+                              @RequestParam @ApiParam (value = "Address") String address) {
+        return patronService.addPatron(salutation, firstName, middleName, lastName, dateOfBirth, address);
+
+        //return patronService.addPatron(salutation, firstName, middleName, lastName, dateOfBirth, address);
     }
 }

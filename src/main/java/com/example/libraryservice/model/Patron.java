@@ -3,6 +3,7 @@ package com.example.libraryservice.model;
 import lombok.Value;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Value
 public class Patron {

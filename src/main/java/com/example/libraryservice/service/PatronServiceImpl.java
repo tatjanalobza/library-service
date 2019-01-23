@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +19,7 @@ public class PatronServiceImpl implements PatronService {
     @Override
     public List<Patron> getPatrons() {
         return patronDao.listPatrons();
+
     }
 
     @Override

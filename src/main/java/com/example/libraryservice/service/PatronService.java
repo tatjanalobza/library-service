@@ -11,4 +11,6 @@ public interface PatronService {
 
     Patron getPatron(Long id);
 
+    boolean deletePatron(Long id);
+
 }

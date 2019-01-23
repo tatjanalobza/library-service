@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 @Component
 public class PatronServiceImpl implements PatronService {
@@ -30,6 +31,14 @@ public class PatronServiceImpl implements PatronService {
         }
 
         return patron.get();
+    }
+    @Override
+    public boolean deletePatron(Long id) {
+       if(patronDao.deletePatron(id)) {
+           return true;
+       } else {
+           throw new RuntimeException("The specified id has not been deleted");
+       }
     }
 
 }

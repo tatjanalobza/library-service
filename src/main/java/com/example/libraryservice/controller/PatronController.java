@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
@@ -41,5 +42,14 @@ public class PatronController {
     public Patron getPatron(@PathVariable @ApiParam(value = "The patron id") Long id) {
         return patronService.getPatron(id);
     }
-
+    @ApiOperation(value = "Deletes a single patron")
+    @RequestMapping(value = "/patron/{id}", method = DELETE, produces = "application/json")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully deleted the patron"),
+            @ApiResponse(code = 400, message = "The provided parameter is invalid"),
+            @ApiResponse(code = 401, message = "You are not authorized to delete patrons"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden")})
+    public boolean deletePatron(@PathVariable @ApiParam(value = "Deleted patron with id: ") Long id) {
+            return patronService.deletePatron(id);
+    }
 }

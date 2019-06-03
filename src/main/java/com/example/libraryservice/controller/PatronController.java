@@ -4,15 +4,14 @@ import com.example.libraryservice.model.Patron;
 import com.example.libraryservice.service.PatronService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/library")
@@ -34,7 +33,7 @@ public class PatronController {
     }
 
     @ApiOperation(value = "Retrieves a single patron")
-    @RequestMapping(value = "/patron/{id}", method = GET, produces = "application/json")
+    @RequestMapping(value = "/patrons/{id}", method = GET, produces = "application/json")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved the patron"),
             @ApiResponse(code = 400, message = "The provided parameter(s) is/are invalid"),
@@ -45,7 +44,7 @@ public class PatronController {
     }
 
     @ApiOperation(value = "Deletes a single patron")
-    @RequestMapping(value = "/patron/{id}", method = DELETE, produces = "application/json")
+    @RequestMapping(value = "/patrons/{id}", method = DELETE, produces = "application/json")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully deleted the patron"),
             @ApiResponse(code = 400, message = "The provided parameter is invalid"),
@@ -56,19 +55,15 @@ public class PatronController {
     }
 
     @ApiOperation(value = "Inserts a single patron")
-    @RequestMapping(value = "/patron", method = POST, produces = "application/json")
+    @RequestMapping(value = "/patrons", method = POST, produces = "application/json")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully added the patron"),
             @ApiResponse(code = 400, message = "The provided parameter is invalid"),
             @ApiResponse(code = 401, message = "You are not authorized to add patrons"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden")})
-    public Long insertPatron(@RequestParam(required = false) @ApiParam (value = "Salutation") String salutation,
-                              @RequestParam @ApiParam (value = "First Name") String firstName,
-                              @RequestParam (required = false) @ApiParam (value = "Middle Name") String middleName,
-                              @RequestParam @ApiParam (value = "Last Name") String lastName,
-                              @RequestParam @ApiParam (value = "Date of Birth") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
-                              @RequestParam @ApiParam (value = "Address") String address) {
-        return patronService.addPatron(salutation, firstName, middleName, lastName, dateOfBirth, address);
+    public Long insertPatron(@RequestBody Patron newPatron) {
+        return patronService.addPatron(newPatron);
+
 
         //return patronService.addPatron(salutation, firstName, middleName, lastName, dateOfBirth, address);
     }

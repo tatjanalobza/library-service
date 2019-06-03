@@ -2,16 +2,21 @@ package com.example.libraryservice.model;
 
 import lombok.Value;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Value
+
 public class Patron {
     private Long id;
-    private String firstName;
+    @NotBlank (message = "This is a required field") private String firstName;
     private String middleName;
-    private String lastName;
+     @NotBlank (message = "This is a required field")private String lastName;
     private String salutation;
-    private LocalDate dateOfBirth;
-    private String address;
+    @NotBlank (message = "This is a required field")private LocalDate dateOfBirth;
+    @NotBlank (message = "This is a required field")private String address;
+
+
+   // public Patron(){};
+
 }

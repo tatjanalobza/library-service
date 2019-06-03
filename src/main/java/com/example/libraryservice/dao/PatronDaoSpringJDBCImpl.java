@@ -25,7 +25,7 @@ public class PatronDaoSpringJDBCImpl implements PatronDao {
     }
 
     @Override
-    public Long addPatron(String salutation, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String address) {
+    public Long addPatron(Patron newPatron) {
         return null;
     }
 }

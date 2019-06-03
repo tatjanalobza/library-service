@@ -17,7 +17,7 @@ import static java.sql.Statement.RETURN_GENERATED_KEYS;
 public class PatronDaoJDBCImpl implements PatronDao {
 
     private final static Logger log = Logger.getLogger(PatronDaoJDBCImpl.class);
-    private Supplier<Connection> connectionSupplier = () -> getConnection("jdbc:mysql://localhost:3306/library","root","Ape5988Zoo");
+    private Supplier<Connection> connectionSupplier = () -> getConnection("jdbc:mysql://localhost:3306/library","root","");
 
     @Override
     public Optional<Patron> findPatron(Long id) {

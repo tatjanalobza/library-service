@@ -28,7 +28,6 @@ public class PatronController {
             @ApiResponse(code = 401, message = "You are not authorized to list patrons"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden")})
     public List<Patron> getPatrons() {
-
         return patronService.getPatrons();
     }
 
@@ -63,8 +62,5 @@ public class PatronController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden")})
     public Long insertPatron(@RequestBody Patron newPatron) {
         return patronService.addPatron(newPatron);
-
-
-        //return patronService.addPatron(salutation, firstName, middleName, lastName, dateOfBirth, address);
     }
 }
